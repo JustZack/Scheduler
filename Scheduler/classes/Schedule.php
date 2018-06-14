@@ -4,7 +4,7 @@
         private $computerSortedEmployees;
 
         public function __construct($employees_array){
-            $this->$employees = $employees_array;
+            $this->employees = $employees_array;
             
         }
         public function schedule($primaryid){

@@ -4,11 +4,10 @@
 
     $company = new Company("Colab", 8, 17);
 
-    $stmt = $pdo_db->query('SELECT * FROM ' . $comapny);
+    $stmt = $pdo_db->query('SELECT * FROM colab');
     while ($row = $stmt->fetch()){
         $company->addEmployee(new Employee($row));
     }
-
 
     function generate_employee_html($row){
         $emp = "<div class='employee'>";
