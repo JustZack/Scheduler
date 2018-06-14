@@ -1,0 +1,16 @@
+<?php 
+    $host = "localhost";
+    $database = "schedule";
+    $comapny = "colab";
+    $user = "root";
+    $pass = "";
+    $charset = 'utf8mb4';
+    $dsn = "mysql:host=$host;dbname=$database;charset=$charset";
+    $opt = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   => false,
+    ];
+
+    $pdo_db = new PDO($dsn, $user, $pass, $opt); 
+?>
