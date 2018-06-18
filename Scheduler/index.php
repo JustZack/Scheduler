@@ -8,16 +8,9 @@
     while ($row = $stmt->fetch()){
         $company->addEmployee(new Employee($row));
     }
-
-    function generate_employee_html($row){
-        $emp = "<div class='employee'>";
-        
-        echo $row['id'] . "<br>";
-        echo $row['name'] . "<br>";
-        echo $row['computerNum'] . "<br>";
-        echo $row['weeklyHours'] . "<br>";
-        echo $row['info'] . "<br>";
-
-        $emp .= "</div>";
+    $company->schedule();
+    $wss = $company->getWorkStations();
+    foreach($wss as $ws){
+        print_r($ws->schedule_m);
     }
 ?>

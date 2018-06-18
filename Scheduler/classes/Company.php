@@ -4,15 +4,15 @@
     include_once "Workstation.php";
     class Company{
 
-        private $name = "";
-        private $open = "";
-        private $close = "";
-        private $hours = "";
+        public $name;
+        public $open;
+        public $close;
+        public $hours;
 
-        private $employees = "";
-        private $workstations = "";
+        public $employees;
+        public $workstations;
 
-        private $schedules = "";
+        public $schedules;
 
         public function __construct($name, $open, $close){
             $this->name = $name;
@@ -24,11 +24,16 @@
             $this->workstations = array();
         }
 
-        public function getName()       { return $this->$name;      }
-        public function getOpenTime()   { return $this->$open;      }
-        public function getCloseTime()  { return $this->$close;     }
-        public function getHoursOpen()  { return $this->$hours;     }
-        public function getEmployees()  { return $this->$employees; }
+        public function getName()           { return $this->name;           }
+        public function getOpenTime()       { return $this->open;           }
+        public function getCloseTime()      { return $this->close;          }
+        public function getHoursOpen()      { return $this->hours;          }
+        public function getEmployees()      { return $this->employees;      }
+        public function getWorkstations()   { return $this->workstations;   }
+
+        public function schedule() {
+            foreach($this->workstations as $ws) $ws->schedule();
+        }
 
         public function addEmployee($emp) { 
             //Check if an employee already exists with the current ID.
@@ -53,8 +58,8 @@
                 }
             }
             //Create a new workstation and add the employee to it.
-            if(!isset($this->workstations))    $this->workstations = array(new Workstation($emp->getComputer(), $emp));
-            else if(!$wsFound)                  $this->workstations[] = new Workstation($emp->getComputer(), $emp);
+            if(!isset($this->workstations))    $this->workstations = array(new Workstation($emp->getComputer(), $this->open, $this->close, $emp));
+            else if(!$wsFound)                  $this->workstations[] = new Workstation($emp->getComputer(), $this->open, $this->close, $emp);
             return true;
         }
     }

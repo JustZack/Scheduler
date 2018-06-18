@@ -1,10 +1,10 @@
 <?php 
     class Employee{
-        public $id = " ";
-        public $name = " ";
-        public $weekly_hours = " ";
-        public $computer_number = " ";
-        public $json_info = " ";
+        public $id;
+        public $name;
+        public $weekly_hours;
+        public $computer_number;
+        public $json_info;
 
         public function __construct($data){
             $this->id = $data["id"];

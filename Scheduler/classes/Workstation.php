@@ -1,12 +1,23 @@
 <?php 
     class Workstation{
-        private $computerNumber = null;
-        private $employees = null;
+        public $computerNumber;
+        public $employees;
 
-        public function __construct($number, $emp = null){
-            $this->ComputerNumber = $number;
+        public $open;
+        public $close;
+
+        public $schedule_m;
+
+        public function __construct($number, $open, $close, $emp = null){
+            $this->computerNumber = $number;
             $this->employees = array();
+            $this->open = $open;
+            $this->close = $close;
             if($emp !== null) $this->employees[] = $emp;
+        }
+        public function schedule(){
+            if(!isset($this->schedule_m)) $this->schedule_m = new Schedule($this->employees, $this->open, $this->close);
+            $this->schedule_m->schedule(0);
         }
         public function addEmployee($emp){
             if(isset($this->employees))
