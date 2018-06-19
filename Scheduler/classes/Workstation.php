@@ -3,21 +3,16 @@
         public $computerNumber;
         public $employees;
 
-        public $open;
-        public $close;
+        public $schedule_o;
 
-        public $schedule_m;
-
-        public function __construct($number, $open, $close, $emp = null){
+        public function __construct($number, $emp = null){
             $this->computerNumber = $number;
             $this->employees = array();
-            $this->open = $open;
-            $this->close = $close;
             if($emp !== null) $this->employees[] = $emp;
         }
-        public function schedule(){
-            if(!isset($this->schedule_m)) $this->schedule_m = new Schedule($this->employees, $this->open, $this->close);
-            $this->schedule_m->schedule(0);
+        public function schedule($open, $close){
+            if(!isset($this->schedule_o)) $this->schedule_o = new Schedule($this->employees);
+            $this->schedule_o->schedule($open, $close, 0);
         }
         public function addEmployee($emp){
             if(isset($this->employees))

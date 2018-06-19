@@ -14,13 +14,13 @@
 
         public $schedules;
 
-        public function __construct($name, $open, $close){
-            $this->name = $name;
-            $this->open = $open;
-            $this->close = $close;
-            $this->hours = $close - $open;
-            $this->employees = array();
+        public function __construct($meta){
+            $this->name = $meta["name"];
+            $this->open = (int)$meta["open"];
+            $this->close = (int)$meta["close"];
+            $this->hours = $this->close - $this->open;
             
+            $this->employees = array();
             $this->workstations = array();
         }
 
@@ -32,7 +32,11 @@
         public function getWorkstations()   { return $this->workstations;   }
 
         public function schedule() {
-            foreach($this->workstations as $ws) $ws->schedule();
+            foreach($this->workstations as $ws) $ws->schedule($this->open, $this->close);
+        }
+
+        public function addEmployees($emps){
+            foreach($emps as $key=>$value) $this->addEmployee(new Employee($emps[$key]));
         }
 
         public function addEmployee($emp) { 
@@ -58,8 +62,8 @@
                 }
             }
             //Create a new workstation and add the employee to it.
-            if(!isset($this->workstations))    $this->workstations = array(new Workstation($emp->getComputer(), $this->open, $this->close, $emp));
-            else if(!$wsFound)                  $this->workstations[] = new Workstation($emp->getComputer(), $this->open, $this->close, $emp);
+            if(!isset($this->workstations)) $this->workstations = array(new Workstation($emp->getComputer(), $emp));
+            else if(!$wsFound)              $this->workstations[] = new Workstation($emp->getComputer(), $emp);
             return true;
         }
     }
