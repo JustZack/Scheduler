@@ -1,0 +1,43 @@
+Base the availability and free time on an array of boolean values. (Or maybe a 24 bit number?)
+(number) EG: 0b000000011100000000000000
+(bool array) EG: {
+  0: false,
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+  5: false,
+  6: false,
+  7: false,
+  8: false,
+  9: false,
+  10: false,
+  11: false,
+  12: false,
+  13: false,
+  14: true,
+  15: true,
+  16: true,
+  17: true,
+  18: false,
+  19: false,
+  20: false,
+  21: false,
+  22: false,
+  23: false,
+  24: false
+}
+
+Both mean: "I am available between 14 and 17. (2pm - 5pm)."
+With the data associated with each employee we can can use bitwise logic (XOR) on the data between employees at the same workstation,
+  We would then have a data set which contains the possible hours for each employee at the same workstation.
+  
+Extrapolating this to figuring out the (optimal) meeting time for everyone is simple.
+  Just take every single employee and AND them together to find where everyone overlaps.
+  
+For both of these ideas you will use nested for loops.
+  Outer loop goes through each employee.
+    Inner loop goes through each entry in the availbility data structure for each employee.
+
+
+REMARKABLY SIMPLE!

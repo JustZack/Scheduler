@@ -1,0 +1,54 @@
+Current DB Structure:
+  Schedule DB=>{
+      meta=>{
+          id,
+          name,
+          open,
+          close
+      },
+      company=>{
+        id,
+        employees=>(json){json_data}
+      }
+  }
+  
+---------------------------------------------
+  
+This structure enables a heavy use of the JSON format.
+The only tables in the DB (Atleast in its least bloated state) are:
+  meta: 
+    Which contains basic information for directly accessing a companies data with an index in each row.
+  companies:
+    Contains very specific data about a company and its employees in each row.
+    
+  New DB Structure:
+    Schedule DB=>{
+      meta=>{      
+        id,
+        name,
+        index
+      }
+      companies=>{
+        id,
+        meta=>(json){
+            name,
+            open,
+            close,
+            (more metadata about company)
+        },
+        employees=>(json){
+            employee=>{
+                name,
+                busytime,
+                weekly_hours,
+                workstation,
+                (more metadata about employee)
+            }
+        }
+      }
+    }
+    
+  Caveat: 
+    The workstation key in the employees json is very colab/LSC specific (might even just be a colab thing). 
+    Consider making it a more abstract idea,
+      Like 
