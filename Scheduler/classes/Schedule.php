@@ -9,11 +9,27 @@
             $this->employees = $employees_array;
         }
         public function schedule($open, $close, $primaryid){
-            $result = $this->employees[0]->free;
-            for($i = 1;$i < count($this->employees);$i++)
-                for($j = 0;$j < count($this->employees[$i]->free);$j++)
-                    $result[$j] = (int)$result[$j] xor (int)$this->employees[$i]->free[$j];
-            print_r($result);
+            $result = array(
+                array(),
+                array(),
+                array(),
+                array(),
+                array(),
+                array(),
+                array()
+            );
+            //Sets up the array to have 7 days, each with 24 entries.
+            for($i = 0;$i < 7;$i++)
+                for($j = 0;$j < 24;$j++)
+                    $result[$i][$j] = " ";
+            
+            for($e = 0;$e < count($this->employees);$e++)                  //Employees
+                for($d = 0;$d < count($result);$d++)                      //Days
+                    for($h = 0;$h < count($result[$d]);$h++)             //Hours
+                        if((int)$this->employees[$e]->free[$d][$h] == 1)//Free hours check
+                            $result[$d][$h] .= $this->employees[$e]->name . " | ";
+
+            //print_r($result);
         }
     }
 ?>
